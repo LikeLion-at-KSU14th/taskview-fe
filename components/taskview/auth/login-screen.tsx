@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Check } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 
@@ -10,8 +9,6 @@ import {
   AuthHeading,
   AuthPageShell,
   FieldLabel,
-  GoogleSsoLink,
-  OrDivider,
   PasswordInput,
   SubmitButton,
   authInputClass,
@@ -31,11 +28,9 @@ function withVerificationEmail(path: string, email: string) {
 export function LoginScreen({
   returnTo,
   resetComplete = false,
-  oauthError = false,
 }: {
   returnTo?: string;
   resetComplete?: boolean;
-  oauthError?: boolean;
 }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -71,28 +66,20 @@ export function LoginScreen({
 
   return (
     <AuthPageShell
-      cardClassName="min-h-[610px] px-6 pb-7 pt-[42px] sm:px-10"
-      cardDesktopTop="xl:top-[170px]"
+      cardClassName="px-6 py-10 sm:px-10"
+      cardDesktopTop="xl:top-1/2 xl:-translate-y-1/2"
       footer={
         <p className="text-[11px] leading-5 text-tv-slate">
           계속하면 Needex 이용약관 및 개인정보 처리방침에 동의한 것으로 간주됩니다.
         </p>
       }
-      footerClassName="xl:top-[814px]"
+      footerClassName="xl:bottom-12"
     >
       <AuthHeading description="Needex 워크스페이스에 로그인하세요." title="다시 만나서 반가워요" />
 
       {resetComplete ? <AuthFeedback className="mt-4" tone="success">비밀번호가 변경되었습니다. 새 비밀번호로 로그인해주세요.</AuthFeedback> : null}
-      {oauthError ? <AuthFeedback className="mt-4">Google 로그인을 완료하지 못했습니다. 관리자에게 OAuth 설정을 확인해주세요.</AuthFeedback> : null}
 
-      <div className="mt-6">
-        <GoogleSsoLink label="Google로 계속하기" />
-      </div>
-      <div className="mt-4">
-        <OrDivider />
-      </div>
-
-      <form className="mt-[18px]" onSubmit={submit}>
+      <form className="mt-6" onSubmit={submit}>
         <div>
           <FieldLabel htmlFor="login-email">이메일</FieldLabel>
           <Input
@@ -134,10 +121,6 @@ export function LoginScreen({
         아직 계정이 없나요? <Link className="ml-1.5 font-bold text-tv-blue-500 hover:text-tv-blue-700" href={withReturnTo("/signup", returnTo)}>회원가입</Link>
       </p>
 
-      <div className="mt-[22px] flex min-h-[54px] items-center gap-2.5 rounded-[10px] bg-tv-canvas px-3.5 text-[11px] leading-5 text-tv-gray">
-        <Check aria-hidden="true" className="size-4 shrink-0 text-tv-green-700" strokeWidth={2} />
-        로그인 후에도 원본 데이터 권한은 별도 정책에 따라 관리됩니다.
-      </div>
     </AuthPageShell>
   );
 }

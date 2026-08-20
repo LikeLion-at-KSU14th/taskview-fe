@@ -84,6 +84,9 @@ test.describe("@visual-matrix Figma UI 작업 30개 라우트", () => {
       const response = await page.goto(appUrl(route), { waitUntil: "domcontentloaded" });
       expect(response?.status(), `${route} HTTP status`).toBeLessThan(400);
       await expect(page.getByRole("heading", { name: item.heading }).first()).toBeVisible();
+      if (["login", "signup", "forgot-password", "account"].includes(item.slug)) {
+        await expect(page.getByText(/Google (SSO|계정|로그인|연결)|Google로/)).toHaveCount(0);
+      }
       await page.waitForLoadState("networkidle").catch(() => undefined);
       await page.waitForTimeout(300);
       await assertPageHealthy(page, diagnostics, `${item.number} ${route}`);
@@ -94,6 +97,18 @@ test.describe("@visual-matrix Figma UI 작업 30개 라우트", () => {
       await context.close();
     });
   }
+});
+
+test.describe("@visual-matrix 지원 인증 방식", () => {
+  test("Google OAuth BFF 경로를 제공하지 않는다", async ({ request }) => {
+    const [start, callback] = await Promise.all([
+      request.get(appUrl("/api/auth/google/start")),
+      request.get(appUrl("/api/auth/google/callback?code=test&state=test")),
+    ]);
+
+    expect(start.status()).toBe(404);
+    expect(callback.status()).toBe(404);
+  });
 });
 
 

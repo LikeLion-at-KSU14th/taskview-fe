@@ -182,31 +182,6 @@ export function PasswordInput({
   );
 }
 
-export function GoogleSsoLink({ label }: { label: string }) {
-  return (
-    <a
-      className="flex h-12 w-full items-center rounded-xl border border-tv-border bg-white px-[18px] text-[12px] font-medium text-tv-ink transition-colors hover:bg-tv-canvas focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-tv-blue-500"
-      href="/api/auth/google/start"
-    >
-      <span aria-hidden="true" className="grid size-5 place-items-center rounded-full border border-tv-border bg-white text-[10px] font-bold text-tv-blue-500">
-        G
-      </span>
-      <span className="flex-1 text-center">{label}</span>
-      <span aria-hidden="true" className="size-5" />
-    </a>
-  );
-}
-
-export function OrDivider() {
-  return (
-    <div className="flex items-center gap-4 text-[11px] text-tv-slate" role="separator">
-      <span className="h-px flex-1 bg-tv-border" />
-      또는
-      <span className="h-px flex-1 bg-tv-border" />
-    </div>
-  );
-}
-
 type FeedbackTone = "error" | "info" | "success";
 
 export function AuthFeedback({ children, tone = "error", className }: { children: ReactNode; tone?: FeedbackTone; className?: string }) {

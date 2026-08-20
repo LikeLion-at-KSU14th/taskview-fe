@@ -8,7 +8,6 @@ export default async function LoginPage({
     next?: string | string[];
     returnTo?: string | string[];
     reset?: string | string[];
-    oauth_error?: string | string[];
   }>;
 }) {
   const query = await searchParams;
@@ -20,5 +19,5 @@ export default async function LoginPage({
         : undefined,
   );
   const resetComplete = query.reset === "complete";
-  return <LoginScreen returnTo={returnTo} oauthError={typeof query.oauth_error === "string"} resetComplete={resetComplete} />;
+  return <LoginScreen returnTo={returnTo} resetComplete={resetComplete} />;
 }

@@ -82,7 +82,6 @@ export function ForgotPasswordScreen() {
           {pending ? "전송 중…" : <>재설정 링크 보내기 <ArrowRight aria-hidden="true" className="size-4" /></>}
         </SubmitButton>
       </form>
-      <p className="mt-[18px] text-[11px] leading-5 text-tv-slate">Google SSO로 가입했다면 Google 계정으로 로그인해주세요.</p>
     </AuthPageShell>
   );
 }

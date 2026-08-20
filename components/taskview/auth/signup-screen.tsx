@@ -10,8 +10,6 @@ import {
   AuthHeading,
   AuthPageShell,
   FieldLabel,
-  GoogleSsoLink,
-  OrDivider,
   SubmitButton,
   authInputClass,
 } from "@/components/taskview/auth/shared";
@@ -92,19 +90,10 @@ export function SignupScreen({
     <AuthPageShell
       cardClassName="min-h-[744px] px-6 pb-6 pt-[38px] sm:px-10"
       cardDesktopTop="xl:top-[112px]"
-      footer={<p className="text-[11px] leading-5 text-tv-slate">다음 단계에서 이메일 확인 후 워크스페이스를 생성합니다.</p>}
-      footerClassName="xl:top-[890px]"
     >
       <AuthHeading description="계정부터 만들고 워크스페이스 설정은 다음 단계에서 진행해요." title="Needex를 시작해볼까요?" />
 
-      <div className="mt-[22px]">
-        <GoogleSsoLink label="Google로 가입하기" />
-      </div>
-      <div className="mt-4">
-        <OrDivider />
-      </div>
-
-      <form className="mt-3.5" onSubmit={submit}>
+      <form className="mt-[22px]" onSubmit={submit}>
         <div>
           <FieldLabel htmlFor="signup-name">이름</FieldLabel>
           <Input
@@ -177,7 +166,6 @@ export function SignupScreen({
       <p className="mt-4 text-center text-[13px] leading-5 text-tv-gray">
         이미 계정이 있나요? <Link className="ml-2 font-bold text-tv-blue-500 hover:text-tv-blue-700" href={withReturnTo("/login", returnTo)}>로그인</Link>
       </p>
-      <AuthFeedback className="mt-4" tone="info">가입만으로 어떤 데이터에도 접근 권한이 생기지 않습니다.</AuthFeedback>
     </AuthPageShell>
   );
 }
