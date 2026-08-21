@@ -43,7 +43,6 @@ export function resolvePostAuthPath(
     ? new URL(safeBackendPath, localOrigin).pathname
     : null;
   const backendRequiresFlow =
-    backendPathname === "/verify-email" ||
     backendPathname === "/onboarding/workspace" ||
     backendPathname === "/onboarding/invite";
 

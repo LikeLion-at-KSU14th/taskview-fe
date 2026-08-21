@@ -18,13 +18,6 @@ import { requestJson } from "@/lib/client-api";
 import { resolvePostAuthPath, withReturnTo } from "@/lib/safe-return-to";
 import type { User } from "@/lib/types";
 
-function withVerificationEmail(path: string, email: string) {
-  const parsed = new URL(path, "https://taskview.local");
-  if (parsed.pathname !== "/verify-email") return path;
-  parsed.searchParams.set("email", email);
-  return `${parsed.pathname}${parsed.search}${parsed.hash}`;
-}
-
 export function LoginScreen({
   returnTo,
   resetComplete = false,
@@ -50,12 +43,7 @@ export function LoginScreen({
         body: JSON.stringify({ email, password }),
       });
       setPassword("");
-      router.replace(
-        withVerificationEmail(
-          resolvePostAuthPath(result.next_path, returnTo),
-          result.user.email,
-        ),
-      );
+      router.replace(resolvePostAuthPath(result.next_path, returnTo));
       router.refresh();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "로그인하지 못했습니다.");

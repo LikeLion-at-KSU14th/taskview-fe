@@ -55,7 +55,6 @@ export function SignupScreen({
       const result = await requestJson<{
         user: User;
         next_path?: string;
-        verification_token?: string | null;
       }>("/api/auth/signup", {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -69,15 +68,7 @@ export function SignupScreen({
       });
       setPassword("");
       const destination = resolvePostAuthPath(result.next_path, returnTo);
-      const destinationUrl = new URL(destination, "https://taskview.local");
-      if (destinationUrl.pathname === "/verify-email") {
-        destinationUrl.searchParams.set("email", email);
-        if (result.verification_token) {
-          destinationUrl.searchParams.set("token", result.verification_token);
-        }
-      }
-      const nextPath = `${destinationUrl.pathname}${destinationUrl.search}${destinationUrl.hash}`;
-      router.replace(nextPath);
+      router.replace(destination);
       router.refresh();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "계정을 만들지 못했습니다.");

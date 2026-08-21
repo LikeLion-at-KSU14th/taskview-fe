@@ -29,10 +29,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           router.replace("/login");
           return;
         }
-        if (nextUser.email_verified === false) {
-          router.replace(`/verify-email?email=${encodeURIComponent(nextUser.email)}`);
-          return;
-        }
         if (nextUser.onboarding_status === "workspace_setup") {
           router.replace("/onboarding/workspace");
           return;

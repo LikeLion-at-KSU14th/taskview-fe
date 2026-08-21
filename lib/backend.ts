@@ -149,13 +149,11 @@ export async function establishSession(
       session_token: string;
       expires_at: string;
       next_path?: string;
-      verification_token?: string | null;
     };
     const response = NextResponse.json(
       {
         user: payload.user,
         next_path: payload.next_path ?? "/dashboard",
-        verification_token: payload.verification_token ?? null,
       },
       { status: result.response.status },
     );
